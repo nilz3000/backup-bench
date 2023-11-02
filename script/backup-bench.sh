@@ -713,7 +713,7 @@ function restore_borg_beta {
 		borg_beta extract --rsh "ssh -i ${SOURCE_USER_HOMEDIR}/.ssh/borg_beta.key -p ${REMOTE_TARGET_SSH_PORT}" --noacls --noxattrs "${backup_id}" >> /var/log/${PROGRAM}.borg_beta_tests.log 2>&1
 	else
 		export BORG_REPO="$BORG_BETA_REPO_LOCAL"
-		borg_beta extract --rsh "ssh -i ${SOURCE_USER_HOMEDIR}/.ssh/borg_beta.key -p ${REMOTE_TARGET_SSH_PORT}" --noacls --noxattrs "${backup_id}" >> /var/log/${PROGRAM}.borg_beta_tests.log 2>&1
+		borg_beta extract --noacls --noxattrs "${backup_id}" >> /var/log/${PROGRAM}.borg_beta_tests.log 2>&1
 	fi
 	result=$?
 	if [ "${result}" -ne 0 ]; then
@@ -1329,7 +1329,7 @@ if [ "${ALL}" == true ]; then
 	init_repositories false true
 	benchmarks false true
 	clear_repositories true
-	init_repositories true rtue
+	init_repositories true true
 	benchmarks true true $BACKUP_ID_TIMESTAMP
 else
 	full_cmd="$cmd $REMOTELY $USE_GIT_VERSIONS $BACKUP_ID_TIMESTAMP"
